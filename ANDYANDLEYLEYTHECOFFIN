@@ -1,0 +1,337 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Racistdustydust Hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Loading for you daddy~",
+   LoadingSubtitle = "by your idiot feet sniffer",
+   ShowText = "me daddy~", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+   DisableRayfieldPrompts = true,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Racist hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Sexy gui for the key system",
+      Subtitle = "Key System",
+      Note = "the key is in my dc server (changes daily)", -- Use this to tell the user how to get a key
+      FileName = "TheRacistDustdust", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/Mi3NfsAM"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("Main👻", 4483362458) -- Title, Image
+local MainSection = MainTab:CreateSection("Features")
+
+Rayfield:Notify({
+   Title = "You fucking executed the script!",
+   Content = "fuck you lol",
+   Duration = 4.5,
+   Image = 4483362458,
+})
+
+local Toggle = MainTab:CreateToggle({
+   Name = "God mode (may not work on some games)",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   if not getgenv()._touchState then
+	getgenv()._touchState = {enabled=false,conn=nil}
+end
+
+local function apply(obj)
+	if obj:IsA("BasePart") then
+		obj.CanTouch = not getgenv()._touchState.enabled
+	end
+end
+
+if Value then
+	getgenv()._touchState.enabled = true
+	for _,obj in ipairs(workspace:GetDescendants()) do
+		apply(obj)
+	end
+	if not getgenv()._touchState.conn then
+		getgenv()._touchState.conn = workspace.DescendantAdded:Connect(apply)
+	end
+else
+	getgenv()._touchState.enabled = false
+	if getgenv()._touchState.conn then
+		getgenv()._touchState.conn:Disconnect()
+		getgenv()._touchState.conn = nil
+	end
+	for _,obj in ipairs(workspace:GetDescendants()) do
+		if obj:IsA("BasePart") then
+			obj.CanTouch = true
+		end
+	end
+end
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Tp Tool",
+   Callback = function()
+   --[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Tp tool"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+   end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Walk Speed",
+   CurrentValue = "16",
+   PlaceholderText = "Set Speed",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Jump Power",
+   CurrentValue = "50",
+   PlaceholderText = "Set Jump Power",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Text)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "WallHop Gui (not mine)",
+   Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/giobolqvi1/wallhop-by-GioBolqv1-fuck-spiderscripts-skidders/refs/heads/main/obfuscated_script-1769006346803.lua.txt"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Fly Gui (not mine)",
+   Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+   end,
+})
+
+local MiscTab = Window:CreateTab("Misc🛡️", 4483362458) -- Title, Image
+local MiscSection = MiscTab:CreateSection("Features")
+
+local Button = MiscTab:CreateButton({
+   Name = "Full Bright",
+   Callback = function()
+   local Lighting = game:GetService("Lighting")
+
+Lighting.Brightness = 3
+Lighting.ClockTime = 12
+Lighting.FogEnd = 1e9
+Lighting.GlobalShadows = false
+
+Lighting:GetPropertyChangedSignal("Brightness"):Connect(function()
+	Lighting.Brightness = 3
+end)
+
+Lighting:GetPropertyChangedSignal("ClockTime"):Connect(function()
+	Lighting.ClockTime = 12
+end)
+
+Lighting:GetPropertyChangedSignal("FogEnd"):Connect(function()
+	Lighting.FogEnd = 1e9
+end)
+
+Lighting:GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+	Lighting.GlobalShadows = false
+end)
+   end,
+})
+
+local Button = MiscTab:CreateButton({
+   Name = "No Fog",
+   Callback = function()
+   local Lighting = game:GetService("Lighting")
+
+Lighting.FogStart = 0
+Lighting.FogEnd = 1e9
+
+for _, v in ipairs(Lighting:GetChildren()) do
+	if v:IsA("Atmosphere") then
+		v.Density = 0
+	end
+end
+
+Lighting:GetPropertyChangedSignal("FogStart"):Connect(function()
+	Lighting.FogStart = 0
+end)
+
+Lighting:GetPropertyChangedSignal("FogEnd"):Connect(function()
+	Lighting.FogEnd = 1e9
+end)
+
+Lighting.ChildAdded:Connect(function(v)
+	if v:IsA("Atmosphere") then
+		v.Density = 0
+	end
+end)
+   end,
+})
+
+local Button = MiscTab:CreateButton({
+   Name = "Stronger Full Bright (FLASH WARNING⚠️)",
+   Callback = function()
+   local Lighting = game:GetService("Lighting")
+
+Lighting.Brightness = 6
+Lighting.ExposureCompensation = 3
+Lighting.ClockTime = 12
+Lighting.FogEnd = 1e9
+Lighting.GlobalShadows = false
+
+Lighting.Ambient = Color3.new(1, 1, 1)
+Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+
+Lighting:GetPropertyChangedSignal("Brightness"):Connect(function()
+	Lighting.Brightness = 6
+end)
+
+Lighting:GetPropertyChangedSignal("ExposureCompensation"):Connect(function()
+	Lighting.ExposureCompensation = 3
+end)
+
+Lighting:GetPropertyChangedSignal("ClockTime"):Connect(function()
+	Lighting.ClockTime = 12
+end)
+
+Lighting:GetPropertyChangedSignal("FogEnd"):Connect(function()
+	Lighting.FogEnd = 1e9
+end)
+
+Lighting:GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+	Lighting.GlobalShadows = false
+end)
+
+Lighting:GetPropertyChangedSignal("Ambient"):Connect(function()
+	Lighting.Ambient = Color3.new(1, 1, 1)
+end)
+
+Lighting:GetPropertyChangedSignal("OutdoorAmbient"):Connect(function()
+	Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+end)
+   end,
+})
+
+local Toggle = MiscTab:CreateToggle({
+Name = "ESP",
+CurrentValue = false,
+Flag = "Toggle1",
+Callback = function(Value)
+
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local lp = Players.LocalPlayer
+
+	if not getgenv()._esp then
+		getgenv()._esp = {enabled=false, objs={}, conn=nil, render=nil}
+	end
+
+	local function createESP(p)
+		if p == lp then return end
+		if not p.Character or not p.Character:FindFirstChild("HumanoidRootPart") then return end
+		if p.Character:FindFirstChild("ESP_HL") then return end
+
+		local color = p.Team and p.Team.TeamColor.Color or Color3.new(1,1,1)
+
+		local hl = Instance.new("Highlight")
+		hl.Name = "ESP_HL"
+		hl.Adornee = p.Character
+		hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+		hl.FillTransparency = 0.35
+		hl.OutlineTransparency = 0
+		hl.FillColor = color
+		hl.OutlineColor = color
+		hl.Parent = p.Character
+
+		local gui = Instance.new("BillboardGui")
+		gui.Name = "ESP_GUI"
+		gui.Adornee = p.Character.HumanoidRootPart
+		gui.Size = UDim2.fromScale(0, 0)
+		gui.AlwaysOnTop = true
+		gui.Parent = p.Character
+
+		local txt = Instance.new("TextLabel")
+		txt.Size = UDim2.fromOffset(200, 40)
+		txt.BackgroundTransparency = 1
+		txt.TextScaled = false
+		txt.TextSize = 12
+		txt.Font = Enum.Font.SourceSans
+		txt.TextColor3 = color
+		txt.TextStrokeTransparency = 0
+		txt.Parent = gui
+
+		getgenv()._esp.objs[p] = {hl=hl, txt=txt}
+	end
+
+	if Value then
+		getgenv()._esp.enabled = true
+
+		for _,p in ipairs(Players:GetPlayers()) do
+			createESP(p)
+		end
+
+		getgenv()._esp.conn = Players.PlayerAdded:Connect(function(p)
+			p.CharacterAdded:Connect(function()
+				task.wait(1)
+				if getgenv()._esp.enabled then
+					createESP(p)
+				end
+			end)
+		end)
+
+		getgenv()._esp.render = RunService.RenderStepped:Connect(function()
+			for p,data in pairs(getgenv()._esp.objs) do
+				if p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+					local dist = math.floor((lp.Character.HumanoidRootPart.Position - p.Character.HumanoidRootPart.Position).Magnitude)
+					data.txt.Text = p.Name .. " [" .. dist .. "]"
+				end
+			end
+		end)
+
+	else
+		getgenv()._esp.enabled = false
+
+		if getgenv()._esp.conn then getgenv()._esp.conn:Disconnect() end
+		if getgenv()._esp.render then getgenv()._esp.render:Disconnect() end
+
+		for _,data in pairs(getgenv()._esp.objs) do
+			if data.hl then data.hl:Destroy() end
+			if data.txt then data.txt.Parent:Destroy() end
+		end
+
+		getgenv()._esp.objs = {}
+	end
+
+end,
+})
